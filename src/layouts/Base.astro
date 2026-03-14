@@ -12,7 +12,7 @@ const { title, description } = Astro.props
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,9 +28,9 @@ const { title, description } = Astro.props
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="h-full flex flex-col">
     <Nav />
-    <main class="max-w-7xl mx-auto w-full">
+    <main class="max-w-7xl flex-1 mx-auto w-full">
       <slot />
     </main>
     <Footer />

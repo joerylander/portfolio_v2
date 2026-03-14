@@ -25,11 +25,16 @@ try {
   ])
   featuredProject = featured
   selectedWork    = allProjects.filter(p => !p.featured).slice(0, 3)
-  clients         = [...new Set(allProjects.map(p => p.client))].slice(0, 5)
+  // TODO: replace placeholder client names below once API returns consistent client data
+  clients         = [...new Set(allProjects.map(p => p.client))].slice(0, 4)
   testimonial     = firstTestimonial
 } catch (e) {
   console.warn('[index.astro] API unavailable — rendering with empty data:', (e as Error).message)
 }
+
+// TODO: replace with API data once available (pulled from allProjects.client above when API is live)
+const placeholderClients = ['Acme Corp', 'Brightline', 'Northstack', 'Verdo']
+const logoBarClients = clients.length > 0 ? clients : placeholderClients
 
 const stats: Stat[] = [
   { value: '40+', label: 'Projects delivered', context: 'across startups, agencies & small businesses' },
@@ -65,7 +70,7 @@ const services: Service[] = [
 
   <StatsBar stats={stats} />
 
-  <LogoBar clients={clients} />
+  <LogoBar clients={logoBarClients} />
 
   <!-- Selected work -->
   {selectedWork.length > 0 && (
@@ -94,7 +99,14 @@ const services: Service[] = [
 
   <ServicesGrid services={services} />
 
-  {testimonial && <TestimonialBlock testimonial={testimonial} />}
+  <!-- TODO: replace with real data from API -->
+  <TestimonialBlock testimonial={testimonial ?? {
+    quote: "Working with Joe was the smoothest dev experience we've had. He asked the right questions upfront, delivered ahead of schedule, and the site performs beautifully.",
+    author: "Sarah Mitchell",
+    role: "Head of Marketing",
+    company: "Brightline",
+    avatarUrl: null,
+  }} />
 
   <CtaBar available={true} availabilityNote="Currently taking on new projects" />
 </Base>
