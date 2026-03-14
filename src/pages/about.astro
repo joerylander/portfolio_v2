@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro'
 import { getAboutContent } from '../lib/api'
-import type { AboutContent } from '../lib/api.model'
+import type { AboutContent } from '@/models/about'
 
 let about: AboutContent | null = null
 
@@ -48,9 +48,9 @@ const steps = [
     <header class="px-13 pt-16 pb-14 max-md:px-6 max-md:pt-12">
       <div class="flex items-center gap-3 mb-6">
         <div class="w-7 h-px bg-accent shrink-0"></div>
-        <span class="font-mono text-[11px] text-accent uppercase tracking-widest">About</span>
+        <span class="font-mono text-xs text-accent uppercase tracking-widest">About</span>
       </div>
-      <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] max-w-2xl max-md:text-[36px]">
+      <h1 class="font-serif text-5xl font-light text-fg leading-[1.05] max-w-2xl max-md:text-4xl">
         {headline}
       </h1>
     </header>
@@ -62,7 +62,7 @@ const steps = [
       <div>
         <div class="flex flex-col gap-5 mb-14">
           {bioParagraphs.map((para: string) => (
-            <p class="font-sans text-[16px] text-fg leading-relaxed">{para}</p>
+            <p class="font-sans text-base text-fg leading-relaxed">{para}</p>
           ))}
         </div>
 
@@ -70,7 +70,7 @@ const steps = [
         <div>
           <div class="flex items-center gap-3 mb-8">
             <div class="w-7 h-px bg-accent shrink-0"></div>
-            <span class="font-mono text-[11px] text-accent uppercase tracking-widest">How I work</span>
+            <span class="font-mono text-xs text-accent uppercase tracking-widest">How I work</span>
           </div>
           <div class="flex flex-col gap-0 border border-fg/8 rounded-xl overflow-hidden">
             {steps.map((item, i) => (
@@ -78,10 +78,10 @@ const steps = [
                 'flex gap-5 px-7 py-6',
                 i < steps.length - 1 ? 'border-b border-fg/8' : '',
               ]}>
-                <span class="font-mono text-[11px] text-accent shrink-0 mt-0.75">{item.step}</span>
+                <span class="font-mono text-xs text-accent shrink-0 mt-0.75">{item.step}</span>
                 <div>
-                  <h3 class="font-sans text-[15px] font-medium text-fg mb-1">{item.title}</h3>
-                  <p class="font-sans text-[13px] text-muted leading-relaxed">{item.description}</p>
+                  <h3 class="font-sans text-sm font-medium text-fg mb-1">{item.title}</h3>
+                  <p class="font-sans text-sm text-muted leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
@@ -99,18 +99,18 @@ const steps = [
               'block w-1.5 h-1.5 rounded-full shrink-0',
               available ? 'bg-available' : 'bg-faint',
             ]}></span>
-            <span class="font-mono text-[11px] text-muted">
+            <span class="font-mono text-xs text-muted">
               {available ? 'Available for work' : 'Not currently available'}
             </span>
           </div>
-          <p class="font-sans text-[13px] text-muted leading-relaxed mb-6">
+          <p class="font-sans text-sm text-muted leading-relaxed mb-6">
             {available
               ? availNote
               : 'I\'m fully booked right now but happy to discuss future projects.'}
           </p>
           <a
             href="/contact"
-            class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-6 py-2.5 rounded-md hover:opacity-85 transition-opacity inline-block"
+            class="font-sans text-sm font-medium text-card bg-fg no-underline px-6 py-2.5 rounded-md hover:opacity-85 transition-opacity inline-block"
           >
             {available ? 'Start a conversation' : 'Get in touch'}
           </a>
@@ -118,7 +118,7 @@ const steps = [
 
         <!-- What I work on -->
         <div class="bg-card border border-fg/8 rounded-xl p-7">
-          <h3 class="font-sans text-[13px] font-medium text-fg mb-4">I work well with</h3>
+          <h3 class="font-sans text-sm font-medium text-fg mb-4">I work well with</h3>
           <ul class="flex flex-col gap-2 list-none m-0 p-0">
             {[
               'Startups shipping their first marketing site',
@@ -128,7 +128,7 @@ const steps = [
             ].map(item => (
               <li class="flex items-start gap-2.5">
                 <span class="block w-1 h-1 rounded-full bg-accent shrink-0 mt-1.75"></span>
-                <span class="font-sans text-[13px] text-muted leading-snug">{item}</span>
+                <span class="font-sans text-sm text-muted leading-snug">{item}</span>
               </li>
             ))}
           </ul>

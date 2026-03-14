@@ -1,10 +1,19 @@
-export type { AboutContent, Project, Result, TimelineItem, Testimonial } from "./api.model";
-import type { AboutContent, Project, Testimonial } from "./api.model";
+export type { Project, Result, TimelineItem } from "@/models/project";
+export type { Testimonial } from "@/models/testimonial";
+export type { AboutContent } from "@/models/about";
+export type { ContactFormData, ContactResponse } from "@/models/contact";
+
+import type { Project } from "@/models/project";
+import type { Testimonial } from "@/models/testimonial";
+import type { AboutContent } from "@/models/about";
 
 const BASE_URL = import.meta.env.LARAVEL_API_URL;
 const TOKEN = import.meta.env.LARAVEL_API_TOKEN;
 
-async function apiFetch<T>(path: string): Promise<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ApiRecord = Record<string, any>;
+
+async function apiFetch(path: string): Promise<ApiRecord | ApiRecord[]> {
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
@@ -16,53 +25,12 @@ async function apiFetch<T>(path: string): Promise<T> {
     throw new Error(`API error: ${res.status} on ${path}`);
   }
 
-  return res.json() as Promise<T>;
+  return res.json();
 }
-
-// --- Raw API types (snake_case from Laravel) ---
-
-type RawTestimonial = {
-  quote: string;
-  author: string;
-  role: string;
-  company?: string;
-  avatar_url: string | null;
-};
-
-type RawProject = {
-  slug: string;
-  title: string;
-  summary: string;
-  client: string;
-  industry: string;
-  project_type?: string;
-  year: number;
-  duration_weeks?: number;
-  delivered_note?: string;
-  featured: boolean;
-  tags: string[];
-  thumbnail_url: string | null;
-  hero_image_url?: string | null;
-  results: { value: string; label: string }[];
-  result_preview: string;
-  body?: { problem: string; approach: string; outcome: string };
-  images?: { before_url: string | null; after_url: string | null };
-  timeline?: { phase: string; duration: string }[];
-  deliverables?: string[];
-  testimonial?: RawTestimonial;
-  next_project?: { slug: string; title: string; result_preview: string };
-};
-
-type RawAboutContent = {
-  headline: string;
-  bio_paragraphs: string[];
-  availability_status: boolean;
-  availability_note?: string;
-};
 
 // --- Mappers ---
 
-function mapTestimonial(raw: RawTestimonial): Testimonial {
+function mapTestimonial(raw: ApiRecord): Testimonial {
   return {
     quote: raw.quote,
     author: raw.author,
@@ -72,7 +40,7 @@ function mapTestimonial(raw: RawTestimonial): Testimonial {
   };
 }
 
-function mapProject(raw: RawProject): Project {
+function mapProject(raw: ApiRecord): Project {
   return {
     slug: raw.slug,
     title: raw.title,
@@ -106,7 +74,7 @@ function mapProject(raw: RawProject): Project {
   };
 }
 
-function mapAboutContent(raw: RawAboutContent): AboutContent {
+function mapAboutContent(raw: ApiRecord): AboutContent {
   return {
     headline: raw.headline,
     bioParagraphs: raw.bio_paragraphs,
@@ -118,7 +86,7 @@ function mapAboutContent(raw: RawAboutContent): AboutContent {
 // --- Projects ---
 
 export async function getAllProjects(): Promise<Project[]> {
-  const raw = await apiFetch<RawProject[]>("/api/projects");
+  const raw = await apiFetch("/api/projects") as ApiRecord[];
   return raw.map(mapProject);
 }
 
@@ -129,7 +97,7 @@ export async function getFeaturedProject(): Promise<Project | null> {
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
-    const raw = await apiFetch<RawProject>(`/api/projects/${slug}`);
+    const raw = await apiFetch(`/api/projects/${slug}`) as ApiRecord;
     return mapProject(raw);
   } catch {
     return null;
@@ -139,7 +107,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 // --- Testimonials ---
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  const raw = await apiFetch<RawTestimonial[]>("/api/testimonials");
+  const raw = await apiFetch("/api/testimonials") as ApiRecord[];
   return raw.map(mapTestimonial);
 }
 
@@ -151,6 +119,6 @@ export async function getFirstTestimonial(): Promise<Testimonial | null> {
 // --- About ---
 
 export async function getAboutContent(): Promise<AboutContent> {
-  const raw = await apiFetch<RawAboutContent>("/api/about");
+  const raw = await apiFetch("/api/about") as ApiRecord;
   return mapAboutContent(raw);
 }

@@ -28,7 +28,42 @@ You are building a freelance web developer portfolio website. Read all documents
 
 6. **Results metrics use plain English labels** — Never render a metric label that sounds like an analytics dashboard. Write for a non-technical reader.
 
-7. **Put types in model files** - Keep types abstracted from files with logical operations in them, and keep them separated in model files instead.
+7. **Types live in model files** — Never define TypeScript types or interfaces
+   inline inside component files, page files, or `lib/api.ts` logic. All types
+   belong in dedicated model files under `src/models/`. Import from there.
+
+   File naming convention:
+   - `src/models/project.ts` → Project, Result, TimelineItem types
+   - `src/models/testimonial.ts` → Testimonial type
+   - `src/models/contact.ts` → ContactFormData, ContactResponse types
+
+   Example:
+   // ✓ correct
+   import type { Project } from '@/models/project'
+
+   // ✗ wrong — type defined inline in a component
+   type Project = { slug: string; title: string }
+
+8. **Prefer native Tailwind classes over arbitrary values** — Always use
+   Tailwind's built-in scale before reaching for arbitrary `[]` syntax.
+   Arbitrary values are only permitted when the design system requires a
+   value that genuinely has no Tailwind equivalent.
+
+   Common cases to avoid:
+   - ✗ `text-[36px]` → ✓ `text-4xl` (or nearest scale match)
+   - ✗ `text-[12px]` → ✓ `text-xs`
+   - ✗ `text-[13px]` → ✓ `text-sm`
+   - ✗ `text-[15px]` → ✓ `text-base` or `text-sm`
+   - ✗ `p-[32px]` → ✓ `p-8`
+   - ✗ `gap-[16px]` → ✓ `gap-4`
+
+   For responsive variants and pseudo-selectors, always check for a
+   canonical Tailwind shorthand before writing a compound arbitrary selector:
+   - ✗ `max-md:[&:nth-child(2)]:border-r-0` → ✓ `max-md:nth-2:border-r-0`
+   - ✗ `[&:nth-child(odd)]:border-r` → ✓ `odd:border-r`
+
+   If you're unsure whether a native class exists, default to the closest
+   Tailwind spacing/typography scale value rather than an arbitrary one.
 
 ## Build order recommendation
 
@@ -74,3 +109,9 @@ You are building a freelance web developer portfolio website. Read all documents
 - Do not expose `LARAVEL_API_TOKEN` to the browser under any circumstance
 - Do not use snake_case in any TypeScript, Astro, or JSX file —
   map API snake_case fields to camelCase in `lib/api.ts`
+- Do not define types inside component, page, or helper files —
+  always import from `src/models/`
+- Do not use arbitrary Tailwind values like `text-[36px]` or `p-[32px]`
+  when a native utility class exists — use the Tailwind scale
+- Do not write compound arbitrary selectors like `[&:nth-child(2)]`
+  when Tailwind has a canonical variant for it

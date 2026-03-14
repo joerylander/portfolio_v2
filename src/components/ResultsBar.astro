@@ -1,5 +1,5 @@
 ---
-import type { Result } from '../lib/api.model'
+import type { Result } from '@/models/project'
 
 interface Props {
   results: Result[]
@@ -12,8 +12,8 @@ const { results } = Astro.props
 <div class="grid gap-px rounded-xl overflow-hidden bg-fg/8" style={`grid-template-columns: repeat(${results.length}, 1fr)`}>
   {results.map(result => (
     <div class="bg-card flex flex-col items-center text-center gap-3 px-8 py-10 transition-colors duration-200 hover:bg-accent-light">
-      <span class="font-serif text-[44px] font-light text-accent leading-none">{result.value}</span>
-      <span class="font-sans text-[12px] text-muted leading-snug max-w-35">{result.label}</span>
+      <span class="font-serif text-5xl font-light text-accent leading-none">{result.value}</span>
+      <span class="font-sans text-xs text-muted leading-snug max-w-35">{result.label}</span>
     </div>
   ))}
 </div>

@@ -1,3 +1,15 @@
+import type { Testimonial } from '@/models/testimonial';
+
+export type Result = {
+  value: string;
+  label: string;
+};
+
+export type TimelineItem = {
+  phase: string;
+  duration: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -31,29 +43,4 @@ export type Project = {
     title: string;
     resultPreview: string;
   };
-};
-
-export type Result = {
-  value: string;
-  label: string;
-};
-
-export type TimelineItem = {
-  phase: string;
-  duration: string;
-};
-
-export type Testimonial = {
-  quote: string;
-  author: string;
-  role: string;
-  company?: string;
-  avatarUrl: string | null;
-};
-
-export type AboutContent = {
-  headline: string;
-  bioParagraphs: string[];
-  availabilityStatus: boolean;
-  availabilityNote?: string;
 };

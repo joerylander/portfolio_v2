@@ -8,11 +8,11 @@ const { clients } = Astro.props
 
 <div class="px-13 pb-16 max-md:px-6">
   <div class="flex items-center gap-10 flex-wrap border-b border-fg/8 pb-8">
-    <span class="font-mono text-[11px] text-faint uppercase tracking-widest shrink-0">
+    <span class="font-mono text-xs text-faint uppercase tracking-widest shrink-0">
       Worked with
     </span>
     {clients.map(name => (
-      <span class="font-sans text-[13px] font-medium text-faint">{name}</span>
+      <span class="font-sans text-sm font-medium text-faint">{name}</span>
     ))}
   </div>
 </div>

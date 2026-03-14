@@ -8,9 +8,9 @@ const { tags } = Astro.props
 
 <div class="flex flex-wrap gap-2" id="filter-bar" role="group" aria-label="Filter projects by tag">
   <button
-    class="filter-btn font-mono text-[11px] px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
+    class="filter-btn font-mono text-xs px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
            transition-colors duration-150 cursor-pointer
-           data-[active]:bg-fg data-[active]:text-card data-[active]:border-fg"
+           data-active:bg-fg data-active:text-card data-active:border-fg"
     data-tag="all"
     data-active
   >
@@ -19,9 +19,9 @@ const { tags } = Astro.props
 
   {tags.map(tag => (
     <button
-      class="filter-btn font-mono text-[11px] px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
+      class="filter-btn font-mono text-xs px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
              transition-colors duration-150 cursor-pointer
-             data-[active]:bg-fg data-[active]:text-card data-[active]:border-fg"
+             data-active:bg-fg data-active:text-card data-active:border-fg"
       data-tag={tag}
     >
       {tag}

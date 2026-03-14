@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro'
 import ResultsBar from '../../components/ResultsBar.astro'
 import CaseStudySidebar from '../../components/CaseStudySidebar.astro'
 import { getAllProjects, getProjectBySlug } from '../../lib/api'
-import type { Project } from '../../lib/api.model'
+import type { Project } from '@/models/project'
 
 export async function getStaticPaths() {
   try {
@@ -39,7 +39,7 @@ const { project } = Astro.props
     <div class="px-13 pt-10 pb-0 max-md:px-6">
       <a
         href="/work"
-        class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors"
+        class="font-sans text-sm text-muted no-underline hover:text-fg transition-colors"
       >
         ← All projects
       </a>
@@ -52,14 +52,14 @@ const { project } = Astro.props
       <div>
         <div class="flex items-center gap-3 mb-6">
           <div class="w-7 h-px bg-accent shrink-0"></div>
-          <span class="font-mono text-[11px] text-accent uppercase tracking-widest">
+          <span class="font-mono text-xs text-accent uppercase tracking-widest">
             Case study — {project.industry}
           </span>
         </div>
-        <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] mb-6 max-md:text-[36px]">
+        <h1 class="font-serif text-5xl font-light text-fg leading-[1.05] mb-6 max-md:text-4xl">
           {project.title}
         </h1>
-        <p class="font-sans text-[16px] text-muted leading-relaxed max-w-xl">
+        <p class="font-sans text-base text-muted leading-relaxed max-w-xl">
           {project.summary}
         </p>
       </div>
@@ -79,9 +79,9 @@ const { project } = Astro.props
               'flex items-start justify-between gap-4 px-5 py-3',
               i < arr.length - 1 ? 'border-b border-fg/8' : '',
             ]}>
-              <span class="font-mono text-[11px] text-muted shrink-0">{row.label}</span>
+              <span class="font-mono text-xs text-muted shrink-0">{row.label}</span>
               <span class:list={[
-                'font-sans text-[13px] text-right leading-snug',
+                'font-sans text-sm text-right leading-snug',
                 row.green ? 'text-available' : 'text-fg',
               ]}>
                 {row.value}
@@ -98,10 +98,10 @@ const { project } = Astro.props
         <img
           src={project.heroImageUrl}
           alt={project.title}
-          class="w-full rounded-xl object-cover aspect-[16/7]"
+          class="w-full rounded-xl object-cover aspect-16/7"
         />
       ) : (
-        <div class="w-full rounded-xl bg-accent-light aspect-[16/7]"></div>
+        <div class="w-full rounded-xl bg-accent-light aspect-16/7"></div>
       )}
     </div>
 
@@ -120,28 +120,28 @@ const { project } = Astro.props
         <div class="flex flex-col gap-12">
 
           <section>
-            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+            <h2 class="font-sans text-xs font-medium text-muted uppercase tracking-widest mb-4">
               The problem
             </h2>
-            <p class="font-sans text-[15px] text-fg leading-relaxed">
+            <p class="font-sans text-sm text-fg leading-relaxed">
               {project.body.problem}
             </p>
           </section>
 
           <section>
-            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+            <h2 class="font-sans text-xs font-medium text-muted uppercase tracking-widest mb-4">
               What I did
             </h2>
-            <p class="font-sans text-[15px] text-fg leading-relaxed">
+            <p class="font-sans text-sm text-fg leading-relaxed">
               {project.body.approach}
             </p>
           </section>
 
           <section>
-            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+            <h2 class="font-sans text-xs font-medium text-muted uppercase tracking-widest mb-4">
               The outcome
             </h2>
-            <p class="font-sans text-[15px] text-fg leading-relaxed">
+            <p class="font-sans text-sm text-fg leading-relaxed">
               {project.body.outcome}
             </p>
           </section>
@@ -165,16 +165,16 @@ const { project } = Astro.props
           href={`/work/${project.nextProject.slug}`}
           class="block no-underline bg-fg rounded-xl px-10 py-10 group"
         >
-          <span class="font-mono text-[11px] text-card/40 uppercase tracking-widest">
+          <span class="font-mono text-xs text-card/40 uppercase tracking-widest">
             Next project
           </span>
-          <h3 class="font-serif text-[32px] font-light text-card leading-snug mt-3 mb-2 max-md:text-[24px]">
+          <h3 class="font-serif text-3xl font-light text-card leading-snug mt-3 mb-2 max-md:text-2xl">
             {project.nextProject.title}
           </h3>
-          <p class="font-mono text-[12px] text-accent mb-6">
+          <p class="font-mono text-xs text-accent mb-6">
             {project.nextProject.resultPreview}
           </p>
-          <span class="font-sans text-[13px] text-card/60 group-hover:text-card transition-colors">
+          <span class="font-sans text-sm text-card/60 group-hover:text-card transition-colors">
             View case study →
           </span>
         </a>

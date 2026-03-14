@@ -16,7 +16,7 @@ const navLinks = [
 <nav class="sticky top-0 z-50 bg-bg border-b border-fg/8">
 <div class="max-w-7xl mx-auto px-13 max-md:px-6 h-15 flex items-center justify-between">
 
-  <a href="/" class="font-serif text-[19px] text-fg no-underline shrink-0">
+  <a href="/" class="font-serif text-xl text-fg no-underline shrink-0">
     JR.
   </a>
 
@@ -33,7 +33,7 @@ const navLinks = [
         <a
           href={href}
           class:list={[
-            'block font-sans text-[13px] font-medium no-underline transition-colors duration-150 max-md:py-2.5',
+            'block font-sans text-sm font-medium no-underline transition-colors duration-150 max-md:py-2.5',
             isActive(href) ? 'text-fg' : 'text-muted hover:text-fg',
           ]}
         >
@@ -44,13 +44,13 @@ const navLinks = [
   </ul>
 
   <div class="flex items-center gap-3 shrink-0">
-    <div class="flex items-center gap-1.5 font-mono text-[11px] text-muted bg-card border border-fg/8 px-3 py-1.25 rounded-full max-md:hidden">
+    <div class="flex items-center gap-1.5 font-mono text-xs text-muted bg-card border border-fg/8 px-3 py-1.25 rounded-full max-md:hidden">
       <span class="block w-1.5 h-1.5 rounded-full bg-available shrink-0"></span>
       Available
     </div>
     <a
       href="/contact"
-      class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-4.5 py-1.75 rounded-md hover:opacity-85 transition-opacity"
+      class="font-sans text-sm font-medium text-card bg-fg no-underline px-4.5 py-1.75 rounded-md hover:opacity-85 transition-opacity"
     >
       Let's talk
     </a>

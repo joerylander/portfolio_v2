@@ -1,5 +1,5 @@
 ---
-import type { Testimonial } from '../lib/api'
+import type { Testimonial } from '@/models/testimonial'
 
 interface Props {
   testimonial: Testimonial
@@ -14,7 +14,7 @@ const initials = testimonial.author.split(' ').map((w: string) => w[0]).join('')
 
     <!-- Quote -->
     <blockquote class="m-0">
-      <p class="font-serif text-[26px] font-light italic text-card leading-snug">
+      <p class="font-serif text-2xl font-light italic text-card leading-snug">
         "{testimonial.quote}"
       </p>
     </blockquote>
@@ -24,7 +24,7 @@ const initials = testimonial.author.split(' ').map((w: string) => w[0]).join('')
       <!-- Diamonds -->
       <div class="flex gap-1.5">
         {Array.from({ length: 5 }).map(() => (
-          <span class="font-mono text-[10px] text-accent">◆</span>
+          <span class="font-mono text-xs text-accent">◆</span>
         ))}
       </div>
 
@@ -38,12 +38,12 @@ const initials = testimonial.author.split(' ').map((w: string) => w[0]).join('')
           />
         ) : (
           <div class="w-10 h-10 rounded-full bg-card/10 border border-card/20 flex items-center justify-center shrink-0">
-            <span class="font-mono text-[11px] text-card">{initials}</span>
+            <span class="font-mono text-xs text-card">{initials}</span>
           </div>
         )}
         <div>
-          <p class="font-sans text-[13px] font-medium text-card leading-none mb-1">{testimonial.author}</p>
-          <p class="font-mono text-[11px] text-card/40">
+          <p class="font-sans text-sm font-medium text-card leading-none mb-1">{testimonial.author}</p>
+          <p class="font-mono text-xs text-card/40">
             {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}
           </p>
         </div>

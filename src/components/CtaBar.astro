@@ -11,21 +11,21 @@ const { available, availabilityNote = 'Currently taking on new projects' } = Ast
   <div class="bg-accent-light border border-accent/20 rounded-xl px-10 py-10 flex items-center justify-between gap-8 max-md:flex-col max-md:items-start">
 
     <!-- Headline -->
-    <h2 class="font-serif text-[42px] font-light text-fg leading-[1.1] max-md:text-[32px]">
+    <h2 class="font-serif text-4xl font-light text-fg leading-[1.1] max-md:text-3xl">
       Got a project<br /><em class="text-accent not-italic">in mind?</em>
     </h2>
 
     <!-- Right: availability + CTA -->
     <div class="flex flex-col items-start gap-4 shrink-0">
       {available && (
-        <div class="flex items-center gap-2 font-mono text-[11px] text-muted">
+        <div class="flex items-center gap-2 font-mono text-xs text-muted">
           <span class="block w-1.5 h-1.5 rounded-full bg-available shrink-0"></span>
           {availabilityNote}
         </div>
       )}
       <a
         href="/contact"
-        class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-7 py-3 rounded-md hover:opacity-85 transition-opacity"
+        class="font-sans text-sm font-medium text-card bg-fg no-underline px-7 py-3 rounded-md hover:opacity-85 transition-opacity"
       >
         Start a conversation
       </a>

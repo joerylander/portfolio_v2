@@ -1,5 +1,5 @@
 ---
-import type { Project } from '../lib/api'
+import type { Project } from '@/models/project'
 
 interface Props {
   project: Project
@@ -31,18 +31,18 @@ const topResult = project.results[0]
     <div class="p-8 flex flex-col justify-center">
       <div class="flex flex-wrap gap-1.5 mb-4">
         {project.tags.map((tag: string) => (
-          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
+          <span class="font-mono text-xs text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
         ))}
       </div>
-      <h3 class="font-serif text-[26px] font-light text-fg leading-snug mb-3">{project.title}</h3>
-      <p class="font-sans text-[13px] text-muted leading-relaxed mb-6">{project.summary}</p>
+      <h3 class="font-serif text-2xl font-light text-fg leading-snug mb-3">{project.title}</h3>
+      <p class="font-sans text-sm text-muted leading-relaxed mb-6">{project.summary}</p>
       <div class="flex items-center justify-between">
-        <span class="font-mono text-[11px] text-faint">{project.client} · {project.year}</span>
+        <span class="font-mono text-xs text-faint">{project.client} · {project.year}</span>
         {topResult && (
-          <span class="font-mono text-[11px] text-available">↑ {topResult.label}</span>
+          <span class="font-mono text-xs text-available">↑ {topResult.label}</span>
         )}
       </div>
-      <span class="font-sans text-[13px] text-muted mt-5 hover:text-fg transition-colors group-hover:text-fg">
+      <span class="font-sans text-sm text-muted mt-5 hover:text-fg transition-colors group-hover:text-fg">
         View case study →
       </span>
     </div>
@@ -67,15 +67,15 @@ const topResult = project.results[0]
     <div class="p-6">
       <div class="flex flex-wrap gap-1.5 mb-3">
         {project.tags.map((tag: string) => (
-          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
+          <span class="font-mono text-xs text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
         ))}
       </div>
-      <h3 class="font-sans text-[16px] font-medium text-fg mb-2 leading-snug">{project.title}</h3>
-      <p class="font-sans text-[13px] text-muted leading-relaxed mb-5">{project.summary}</p>
+      <h3 class="font-sans text-base font-medium text-fg mb-2 leading-snug">{project.title}</h3>
+      <p class="font-sans text-sm text-muted leading-relaxed mb-5">{project.summary}</p>
       <div class="flex items-center justify-between">
-        <span class="font-mono text-[11px] text-faint">{project.client} · {project.year}</span>
+        <span class="font-mono text-xs text-faint">{project.client} · {project.year}</span>
         {topResult && (
-          <span class="font-mono text-[11px] text-available">↑ {topResult.label}</span>
+          <span class="font-mono text-xs text-available">↑ {topResult.label}</span>
         )}
       </div>
     </div>

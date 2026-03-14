@@ -4,10 +4,13 @@ import HeroSection from '../components/HeroSection.astro'
 import StatsBar from '../components/StatsBar.astro'
 import LogoBar from '../components/LogoBar.astro'
 import ProjectCard from '../components/ProjectCard.astro'
+import PainPointSection from '../components/PainPointSection.astro'
 import ServicesGrid from '../components/ServicesGrid.astro'
 import TestimonialBlock from '../components/TestimonialBlock.astro'
 import CtaBar from '../components/CtaBar.astro'
 import { getAllProjects, getFeaturedProject, getFirstTestimonial } from '../lib/api'
+import type { Stat } from '@/models/stats'
+import type { Service } from '@/models/service'
 
 let featuredProject = null
 let selectedWork: Awaited<ReturnType<typeof getAllProjects>> = []
@@ -28,14 +31,14 @@ try {
   console.warn('[index.astro] API unavailable — rendering with empty data:', (e as Error).message)
 }
 
-const stats = [
-  { value: '40+', label: 'Projects delivered' },
-  { value: '5yr', label: 'Experience' },
-  { value: '100', label: 'Lighthouse avg.' },
-  { value: '12h', label: 'First response' },
+const stats: Stat[] = [
+  { value: '40+', label: 'Projects delivered', context: 'across startups, agencies & small businesses' },
+  { value: '5yr', label: 'Experience', context: 'in web design and development' },
+  { value: '100', label: 'Lighthouse avg.', context: 'your site loads fast and ranks better' },
+  { value: '12h', label: 'First response', context: "you'll never be left waiting" },
 ]
 
-const services = [
+const services: Service[] = [
   {
     number: '01',
     title: 'Web design & development',
@@ -70,11 +73,11 @@ const services = [
       <div class="flex items-center justify-between mb-8">
         <div class="flex items-center gap-3">
           <div class="w-7 h-px bg-accent shrink-0"></div>
-          <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Selected work</span>
+          <span class="font-mono text-xs text-accent uppercase tracking-widest">Selected work</span>
         </div>
         <a
           href="/work"
-          class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors group"
+          class="font-sans text-sm text-muted no-underline hover:text-fg transition-colors group"
         >
           View all <span class="inline-block transition-transform duration-150 group-hover:translate-x-0.75">→</span>
         </a>
@@ -86,6 +89,8 @@ const services = [
       </div>
     </section>
   )}
+
+  <PainPointSection />
 
   <ServicesGrid services={services} />
 

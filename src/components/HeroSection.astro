@@ -1,5 +1,5 @@
 ---
-import type { Project } from '../lib/api'
+import type { Project } from '@/models/project'
 import FeaturedProject from './FeaturedProject.astro'
 
 interface Props {
@@ -16,17 +16,17 @@ const { featuredProject } = Astro.props
     <!-- Eyebrow -->
     <div class="flex items-center gap-3 mb-8">
       <div class="w-7 h-px bg-accent shrink-0"></div>
-      <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Freelance web developer</span>
+      <span class="font-mono text-xs text-accent uppercase tracking-widest">Freelance web developer</span>
     </div>
 
     <!-- Headline -->
-    <h1 class="font-serif text-[64px] leading-[1.05] font-light text-fg mb-6 max-md:text-[44px]">
+    <h1 class="font-serif text-6xl leading-[1.05] font-light text-fg mb-6 max-md:text-5xl">
       Websites that work<br />
       <em class="text-accent not-italic">as hard as you do.</em>
     </h1>
 
     <!-- Subheading -->
-    <p class="font-sans text-[16px] text-muted leading-relaxed mb-10 max-w-md">
+    <p class="font-sans text-base text-muted leading-relaxed mb-10 max-w-md">
       I help startups, agencies, and small businesses ship fast, polished web experiences — from first sketch to production deployment.
     </p>
 
@@ -34,13 +34,13 @@ const { featuredProject } = Astro.props
     <div class="flex items-center gap-5 flex-wrap">
       <a
         href="/work"
-        class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-7 py-3 rounded-md hover:opacity-85 transition-opacity"
+        class="font-sans text-sm font-medium text-card bg-fg no-underline px-7 py-3 rounded-md hover:opacity-85 transition-opacity"
       >
         View my work
       </a>
       <a
         href="/process"
-        class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors group"
+        class="font-sans text-sm text-muted no-underline hover:text-fg transition-colors group"
       >
         How I work <span class="inline-block transition-transform duration-150 group-hover:translate-x-0.75">→</span>
       </a>

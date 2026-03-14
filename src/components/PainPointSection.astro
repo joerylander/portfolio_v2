@@ -1,0 +1,29 @@
+---
+const painPoints = [
+  "Your site looks professional, but enquiries aren't coming in",
+  "You're not sure what to fix or where the problem is",
+  "You've invested time and money, but it still doesn't convert",
+]
+---
+
+<section class="px-13 py-20 max-md:px-6">
+  <div class="max-w-2xl mx-auto text-center">
+    <h2 class="font-serif text-4xl font-light text-fg leading-snug mb-10">
+      A good-looking website that nobody acts on is just
+      <em class="not-italic text-accent">expensive decoration.</em>
+    </h2>
+
+    <div class="flex flex-col gap-4 text-left mb-8">
+      {painPoints.map(point => (
+        <div class="flex items-start gap-3">
+          <div class="shrink-0 w-5 h-5 rounded-full bg-accent-light border border-accent/30 flex items-center justify-center mt-0.5">
+            <span class="font-mono text-xs text-accent leading-none">×</span>
+          </div>
+          <p class="font-sans text-sm text-muted leading-snug">{point}</p>
+        </div>
+      ))}
+    </div>
+
+    <p class="font-sans text-sm font-medium text-fg">That's exactly the problem I solve.</p>
+  </div>
+</section>

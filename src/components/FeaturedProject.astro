@@ -1,5 +1,5 @@
 ---
-import type { Project } from '../lib/api'
+import type { Project } from '@/models/project'
 
 interface Props {
   project: Project
@@ -19,22 +19,22 @@ const topResult = project.results[0]
     <img
       src={project.thumbnailUrl}
       alt={project.title}
-      class="w-full object-cover aspect-[16/10]"
+      class="w-full object-cover aspect-16/10"
     />
   ) : (
-    <div class="w-full bg-accent-light aspect-[16/10]"></div>
+    <div class="w-full bg-accent-light aspect-16/10"></div>
   )}
 
   <!-- Body -->
   <div class="p-6">
-    <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-1 rounded-md">
+    <span class="font-mono text-xs text-muted bg-bg border border-fg/8 px-2 py-1 rounded-md">
       Featured project
     </span>
-    <p class="font-sans text-[15px] font-medium text-fg mt-3 mb-2 leading-snug">
+    <p class="font-sans text-sm font-medium text-fg mt-3 mb-2 leading-snug">
       {project.title}
     </p>
     {topResult && (
-      <p class="font-mono text-[11px] text-available">
+      <p class="font-mono text-xs text-available">
         ↑ {topResult.label}
       </p>
     )}

@@ -1,5 +1,6 @@
 ---
-import type { Testimonial, TimelineItem } from '../lib/api.model'
+import type { Testimonial } from '@/models/testimonial'
+import type { TimelineItem } from '@/models/project'
 
 interface Props {
   testimonial?: Testimonial
@@ -18,9 +19,9 @@ const initials = testimonial
   <!-- Card 1: Testimonial -->
   {testimonial && (
     <div class="bg-fg rounded-xl p-6">
-      <span class="font-mono text-[32px] text-accent leading-none block mb-3">"</span>
+      <span class="font-mono text-3xl text-accent leading-none block mb-3">"</span>
       <blockquote class="m-0 mb-5">
-        <p class="font-serif text-[16px] font-light italic text-card leading-relaxed">
+        <p class="font-serif text-base font-light italic text-card leading-relaxed">
           {testimonial.quote}
         </p>
       </blockquote>
@@ -33,12 +34,12 @@ const initials = testimonial
           />
         ) : (
           <div class="w-8 h-8 rounded-full bg-card/10 border border-card/20 flex items-center justify-center shrink-0">
-            <span class="font-mono text-[10px] text-card">{initials}</span>
+            <span class="font-mono text-xs text-card">{initials}</span>
           </div>
         )}
         <div>
-          <p class="font-sans text-[13px] font-medium text-card leading-none mb-0.5">{testimonial.author}</p>
-          <p class="font-mono text-[11px] text-card/40">
+          <p class="font-sans text-sm font-medium text-card leading-none mb-0.5">{testimonial.author}</p>
+          <p class="font-mono text-xs text-card/40">
             {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}
           </p>
         </div>
@@ -50,7 +51,7 @@ const initials = testimonial
   {timeline.length > 0 && (
     <div class="bg-card border border-fg/8 rounded-xl overflow-hidden">
       <div class="px-5 py-4 border-b border-fg/8">
-        <span class="font-sans text-[13px] font-medium text-fg">Timeline</span>
+        <span class="font-sans text-sm font-medium text-fg">Timeline</span>
       </div>
       <div>
         {timeline.map((item, i) => (
@@ -58,8 +59,8 @@ const initials = testimonial
             'flex items-center justify-between px-5 py-3',
             i < timeline.length - 1 ? 'border-b border-fg/8' : '',
           ]}>
-            <span class="font-sans text-[13px] text-fg">{item.phase}</span>
-            <span class="font-mono text-[11px] text-muted">{item.duration}</span>
+            <span class="font-sans text-sm text-fg">{item.phase}</span>
+            <span class="font-mono text-xs text-muted">{item.duration}</span>
           </div>
         ))}
       </div>
@@ -70,7 +71,7 @@ const initials = testimonial
   {deliverables.length > 0 && (
     <div class="bg-card border border-fg/8 rounded-xl overflow-hidden">
       <div class="px-5 py-4 border-b border-fg/8">
-        <span class="font-sans text-[13px] font-medium text-fg">Deliverables</span>
+        <span class="font-sans text-sm font-medium text-fg">Deliverables</span>
       </div>
       <ul class="list-none m-0 p-0 px-5 py-3 flex flex-col gap-3">
         {deliverables.map(item => (
@@ -79,7 +80,7 @@ const initials = testimonial
             <span class="shrink-0 mt-0.5 w-4 h-4 rounded-full bg-accent-light border border-accent/30 flex items-center justify-center">
               <span class="block w-1.5 h-1.5 rounded-full bg-accent"></span>
             </span>
-            <span class="font-sans text-[13px] text-fg leading-snug">{item}</span>
+            <span class="font-sans text-sm text-fg leading-snug">{item}</span>
           </li>
         ))}
       </ul>
