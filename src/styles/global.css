@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colours */
+  --color-bg: #f7f5f0;
+  --color-card: #ffffff;
+  --color-fg: #1c1b18;
+  --color-muted: #8a8880;
+  --color-faint: #c5c3bc;
+  --color-accent: #c17b3f;
+  --color-accent-light: #f5ede3;
+  --color-available: #5cb85c;
+
+  /* Fonts */
+  --font-sans: "Geist", sans-serif;
+  --font-serif: "Fraunces", serif;
+  --font-mono: "Geist Mono", monospace;
+}
+
+html {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}

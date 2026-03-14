@@ -1,0 +1,43 @@
+---
+import type { Project } from '../lib/api'
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+const topResult = project.results[0]
+---
+
+<a
+  href={`/work/${project.slug}`}
+  class="block no-underline bg-card border border-fg/8 rounded-xl overflow-hidden
+         transition-[border-color,transform] duration-200 hover:-translate-y-0.75 hover:border-fg/20"
+>
+  <!-- Image -->
+  {project.thumbnail_url ? (
+    <img
+      src={project.thumbnail_url}
+      alt={project.title}
+      class="w-full object-cover"
+      style="aspect-ratio: 16/10"
+    />
+  ) : (
+    <div class="w-full bg-accent-light" style="aspect-ratio: 16/10"></div>
+  )}
+
+  <!-- Body -->
+  <div class="p-6">
+    <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-1 rounded-md">
+      Featured project
+    </span>
+    <p class="font-sans text-[15px] font-medium text-fg mt-3 mb-2 leading-snug">
+      {project.title}
+    </p>
+    {topResult && (
+      <p class="font-mono text-[11px] text-available">
+        ↑ {topResult.label}
+      </p>
+    )}
+  </div>
+</a>

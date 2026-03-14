@@ -1,0 +1,33 @@
+---
+interface Stat {
+  value: string
+  label: string
+}
+
+interface Props {
+  stats: Stat[]
+}
+
+const { stats } = Astro.props
+---
+
+<div class="px-[52px] py-16 max-md:px-6">
+  <div class="grid grid-cols-4 border border-fg/8 rounded-xl overflow-hidden max-md:grid-cols-2">
+    {stats.map((stat, i) => (
+      <div
+        class:list={[
+          'flex flex-col gap-1 px-8 py-7 transition-colors duration-200 hover:bg-accent-light',
+          i < stats.length - 1 ? 'border-r border-fg/8' : '',
+          'max-md:[&:nth-child(2)]:border-r-0 max-md:[&:nth-child(odd)]:border-r max-md:[&:nth-child(1),&:nth-child(2)]:border-b',
+        ]}
+      >
+        <span class="font-serif text-[36px] leading-none font-light text-fg">
+          {stat.value}
+        </span>
+        <span class="font-sans text-[12px] text-muted">
+          {stat.label}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>

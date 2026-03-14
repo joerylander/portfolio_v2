@@ -1,0 +1,85 @@
+---
+const pathname = Astro.url.pathname
+
+function isActive(href: string) {
+  if (href === '/') return pathname === '/'
+  return pathname.startsWith(href)
+}
+
+const navLinks = [
+  { href: '/work',    label: 'Work' },
+  { href: '/about',   label: 'About' },
+  { href: '/process', label: 'Process' },
+]
+---
+
+<nav class="sticky top-0 z-50 flex items-center justify-between h-[60px] px-[52px] max-md:px-6 bg-bg border-b border-fg/8">
+
+  <a href="/" class="font-serif text-[19px] text-fg no-underline shrink-0">
+    JD.
+  </a>
+
+  <ul
+    id="nav-links"
+    class="hidden md:flex flex-col md:flex-row items-start md:items-center gap-0 md:gap-8
+           list-none m-0 p-0
+           max-md:absolute max-md:top-[60px] max-md:left-0 max-md:right-0
+           max-md:bg-bg max-md:border-b max-md:border-fg/8
+           max-md:px-6 max-md:py-4"
+  >
+    {navLinks.map(({ href, label }) => (
+      <li class="max-md:w-full">
+        <a
+          href={href}
+          class:list={[
+            'block font-sans text-[13px] font-medium no-underline transition-colors duration-150 max-md:py-2.5',
+            isActive(href) ? 'text-fg' : 'text-muted hover:text-fg',
+          ]}
+        >
+          {label}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="flex items-center gap-3 shrink-0">
+    <div class="flex items-center gap-[6px] font-mono text-[11px] text-muted bg-card border border-fg/8 px-3 py-[5px] rounded-full max-md:hidden">
+      <span class="block w-[6px] h-[6px] rounded-full bg-available shrink-0"></span>
+      Available
+    </div>
+    <a
+      href="/contact"
+      class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-[18px] py-[7px] rounded-md hover:opacity-85 transition-opacity"
+    >
+      Let's talk
+    </a>
+  </div>
+
+  <button
+    id="nav-hamburger"
+    class="hidden max-md:flex flex-col justify-center gap-[4px] bg-transparent border-0 cursor-pointer p-1 ml-3"
+    aria-label="Toggle menu"
+    aria-expanded="false"
+  >
+    <span class="block w-5 h-[1.5px] bg-fg"></span>
+    <span class="block w-5 h-[1.5px] bg-fg"></span>
+    <span class="block w-5 h-[1.5px] bg-fg"></span>
+  </button>
+</nav>
+
+<script>
+  const hamburger = document.getElementById('nav-hamburger')
+  const links = document.getElementById('nav-links')
+
+  hamburger?.addEventListener('click', () => {
+    const isOpen = links?.classList.contains('hidden') === false
+    if (isOpen) {
+      links?.classList.add('hidden')
+      links?.classList.remove('flex')
+    } else {
+      links?.classList.remove('hidden')
+      links?.classList.add('flex')
+    }
+    hamburger.setAttribute('aria-expanded', String(!isOpen))
+  })
+</script>

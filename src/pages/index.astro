@@ -1,17 +1,95 @@
 ---
+import Base from '../layouts/Base.astro'
+import HeroSection from '../components/HeroSection.astro'
+import StatsBar from '../components/StatsBar.astro'
+import LogoBar from '../components/LogoBar.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import ServicesGrid from '../components/ServicesGrid.astro'
+import TestimonialBlock from '../components/TestimonialBlock.astro'
+import CtaBar from '../components/CtaBar.astro'
+import { getAllProjects, getFeaturedProject, getFirstTestimonial } from '../lib/api'
 
+let featuredProject = null
+let selectedWork: Awaited<ReturnType<typeof getAllProjects>> = []
+let clients: string[] = []
+let testimonial = null
+
+try {
+  const [featured, allProjects, firstTestimonial] = await Promise.all([
+    getFeaturedProject(),
+    getAllProjects(),
+    getFirstTestimonial(),
+  ])
+  featuredProject = featured
+  selectedWork    = allProjects.filter(p => !p.featured).slice(0, 3)
+  clients         = [...new Set(allProjects.map(p => p.client))].slice(0, 5)
+  testimonial     = firstTestimonial
+} catch (e) {
+  console.warn('[index.astro] API unavailable — rendering with empty data:', (e as Error).message)
+}
+
+const stats = [
+  { value: '40+', label: 'Projects delivered' },
+  { value: '5yr', label: 'Experience' },
+  { value: '100', label: 'Lighthouse avg.' },
+  { value: '12h', label: 'First response' },
+]
+
+const services = [
+  {
+    number: '01',
+    title: 'Web design & development',
+    description: 'Fast, accessible, pixel-perfect sites built to convert visitors, not just impress them.',
+  },
+  {
+    number: '02',
+    title: 'CMS & API integration',
+    description: 'Headless CMS setups, API integrations, and custom backends that give your team full content control.',
+  },
+  {
+    number: '03',
+    title: 'Performance & Core Web Vitals',
+    description: 'Lighthouse scores, image pipelines, edge caching — speed treated as a feature, not an afterthought.',
+  },
+]
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base
+  title="Joe Rylander — Freelance Web Developer"
+  description="I help startups, agencies, and small businesses ship fast, polished web experiences. Available for new projects."
+>
+  <HeroSection featuredProject={featuredProject} />
+
+  <StatsBar stats={stats} />
+
+  <LogoBar clients={clients} />
+
+  <!-- Selected work -->
+  {selectedWork.length > 0 && (
+    <section class="px-13 py-8 max-md:px-6">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-3">
+          <div class="w-7 h-px bg-accent shrink-0"></div>
+          <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Selected work</span>
+        </div>
+        <a
+          href="/work"
+          class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors group"
+        >
+          View all <span class="inline-block transition-transform duration-150 group-hover:translate-x-0.75">→</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
+        {selectedWork.map(project => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <ServicesGrid services={services} />
+
+  {testimonial && <TestimonialBlock testimonial={testimonial} />}
+
+  <CtaBar available={true} availabilityNote="Currently taking on new projects" />
+</Base>

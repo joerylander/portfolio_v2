@@ -1,0 +1,54 @@
+---
+import type { Testimonial } from '../lib/api'
+
+interface Props {
+  testimonial: Testimonial
+}
+
+const { testimonial } = Astro.props
+const initials = testimonial.author.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
+---
+
+<section class="px-[52px] py-8 max-md:px-6">
+  <div class="bg-fg rounded-xl p-10 grid grid-cols-[1fr_220px] gap-10 items-center max-md:grid-cols-1 max-md:gap-8">
+
+    <!-- Quote -->
+    <blockquote class="m-0">
+      <p class="font-serif text-[26px] font-light italic text-card leading-snug">
+        "{testimonial.quote}"
+      </p>
+    </blockquote>
+
+    <!-- Attribution -->
+    <div class="flex flex-col items-start gap-4">
+      <!-- Diamonds -->
+      <div class="flex gap-1.5">
+        {Array.from({ length: 5 }).map(() => (
+          <span class="font-mono text-[10px] text-accent">◆</span>
+        ))}
+      </div>
+
+      <!-- Avatar + name -->
+      <div class="flex items-center gap-3">
+        {testimonial.avatar_url ? (
+          <img
+            src={testimonial.avatar_url}
+            alt={testimonial.author}
+            class="w-10 h-10 rounded-full object-cover shrink-0"
+          />
+        ) : (
+          <div class="w-10 h-10 rounded-full bg-card/10 border border-card/20 flex items-center justify-center shrink-0">
+            <span class="font-mono text-[11px] text-card">{initials}</span>
+          </div>
+        )}
+        <div>
+          <p class="font-sans text-[13px] font-medium text-card leading-none mb-1">{testimonial.author}</p>
+          <p class="font-mono text-[11px] text-card/40">
+            {testimonial.role}{testimonial.company ? `, ${testimonial.company}` : ''}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
