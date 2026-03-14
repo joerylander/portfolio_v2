@@ -30,9 +30,9 @@ const initials = testimonial.author.split(' ').map((w: string) => w[0]).join('')
 
       <!-- Avatar + name -->
       <div class="flex items-center gap-3">
-        {testimonial.avatar_url ? (
+        {testimonial.avatarUrl ? (
           <img
-            src={testimonial.avatar_url}
+            src={testimonial.avatarUrl}
             alt={testimonial.author}
             class="w-10 h-10 rounded-full object-cover shrink-0"
           />

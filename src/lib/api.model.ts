@@ -4,32 +4,32 @@ export type Project = {
   summary: string;
   client: string;
   industry: string;
-  project_type?: string;
+  projectType?: string;
   year: number;
-  duration_weeks?: number;
-  delivered_note?: string;
+  durationWeeks?: number;
+  deliveredNote?: string;
   featured: boolean;
   tags: string[];
-  thumbnail_url: string | null;
-  hero_image_url?: string | null;
+  thumbnailUrl: string | null;
+  heroImageUrl?: string | null;
   results: Result[];
-  result_preview: string;
+  resultPreview: string;
   body?: {
     problem: string;
     approach: string;
     outcome: string;
   };
   images?: {
-    before_url: string | null;
-    after_url: string | null;
+    beforeUrl: string | null;
+    afterUrl: string | null;
   };
   timeline?: TimelineItem[];
   deliverables?: string[];
   testimonial?: Testimonial;
-  next_project?: {
+  nextProject?: {
     slug: string;
     title: string;
-    result_preview: string;
+    resultPreview: string;
   };
 };
 
@@ -48,12 +48,12 @@ export type Testimonial = {
   author: string;
   role: string;
   company?: string;
-  avatar_url: string | null;
+  avatarUrl: string | null;
 };
 
 export type AboutContent = {
   headline: string;
-  bio_paragraphs: string[];
-  availability_status: boolean;
-  availability_note?: string;
+  bioParagraphs: string[];
+  availabilityStatus: boolean;
+  availabilityNote?: string;
 };

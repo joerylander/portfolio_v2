@@ -69,9 +69,9 @@ const { project } = Astro.props
         {[
           { label: 'Client',       value: project.client,                     green: false },
           { label: 'Industry',     value: project.industry,                   green: false },
-          { label: 'Project type', value: project.project_type,               green: false },
-          { label: 'Timeline',     value: project.duration_weeks ? `${project.duration_weeks} weeks` : null, green: false },
-          { label: 'Delivered',    value: project.delivered_note,             green: true  },
+          { label: 'Project type', value: project.projectType,               green: false },
+          { label: 'Timeline',     value: project.durationWeeks ? `${project.durationWeeks} weeks` : null, green: false },
+          { label: 'Delivered',    value: project.deliveredNote,             green: true  },
         ]
           .filter(row => row.value)
           .map((row, i, arr) => (
@@ -94,9 +94,9 @@ const { project } = Astro.props
 
     <!-- Hero image -->
     <div class="px-13 pb-12 max-md:px-6">
-      {project.hero_image_url ? (
+      {project.heroImageUrl ? (
         <img
-          src={project.hero_image_url}
+          src={project.heroImageUrl}
           alt={project.title}
           class="w-full rounded-xl object-cover aspect-[16/7]"
         />
@@ -159,20 +159,20 @@ const { project } = Astro.props
     )}
 
     <!-- Next project -->
-    {project.next_project && (
+    {project.nextProject && (
       <div class="px-13 max-md:px-6">
         <a
-          href={`/work/${project.next_project.slug}`}
+          href={`/work/${project.nextProject.slug}`}
           class="block no-underline bg-fg rounded-xl px-10 py-10 group"
         >
           <span class="font-mono text-[11px] text-card/40 uppercase tracking-widest">
             Next project
           </span>
           <h3 class="font-serif text-[32px] font-light text-card leading-snug mt-3 mb-2 max-md:text-[24px]">
-            {project.next_project.title}
+            {project.nextProject.title}
           </h3>
           <p class="font-mono text-[12px] text-accent mb-6">
-            {project.next_project.result_preview}
+            {project.nextProject.resultPreview}
           </p>
           <span class="font-sans text-[13px] text-card/60 group-hover:text-card transition-colors">
             View case study →

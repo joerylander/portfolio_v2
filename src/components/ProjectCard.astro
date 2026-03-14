@@ -20,8 +20,8 @@ const topResult = project.results[0]
   >
     <!-- Image -->
     <div class="overflow-hidden">
-      {project.thumbnail_url ? (
-        <img src={project.thumbnail_url} alt={project.title} class="w-full h-full object-cover" />
+      {project.thumbnailUrl ? (
+        <img src={project.thumbnailUrl} alt={project.title} class="w-full h-full object-cover" />
       ) : (
         <div class="w-full h-full bg-accent-light min-h-60"></div>
       )}
@@ -56,8 +56,8 @@ const topResult = project.results[0]
   >
     <!-- Image -->
     <div class="border-b border-fg/8 aspect-video">
-      {project.thumbnail_url ? (
-        <img src={project.thumbnail_url} alt={project.title} class="w-full h-full object-cover" />
+      {project.thumbnailUrl ? (
+        <img src={project.thumbnailUrl} alt={project.title} class="w-full h-full object-cover" />
       ) : (
         <div class="w-full h-full bg-bg"></div>
       )}
