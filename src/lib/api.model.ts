@@ -52,7 +52,8 @@ export type Testimonial = {
 };
 
 export type AboutContent = {
-  bio: string;
-  availability: boolean;
+  headline: string;
+  bio_paragraphs: string[];
+  availability_status: boolean;
   availability_note?: string;
 };

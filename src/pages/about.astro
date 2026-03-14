@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro'
+import { getAboutContent } from '../lib/api'
+import type { AboutContent } from '../lib/api.model'
+
+let about: AboutContent | null = null
+
+try {
+  about = await getAboutContent()
+} catch (e) {
+  console.warn('[about.astro] API unavailable:', (e as Error).message)
+}
+
+const headline       = about?.headline        ?? 'I build websites that work as hard as you do.'
+const bioParagraphs  = about?.bio_paragraphs  ?? [
+  'I\'m a freelance web developer with five years of experience helping startups, agencies, and small businesses ship web products that actually perform. My focus is always on the outcome — faster load times, more enquiries, fewer drop-offs — not on the technology stack behind it.',
+  'I work best with clients who value clear communication and want a single point of contact from first brief to launch. No hand-offs. No surprises. Just a reliable process and a result you\'re proud to show off.',
+]
+const available      = about?.availability_status ?? true
+const availNote      = about?.availability_note   ?? 'Currently taking on new projects'
+
+const process = [
+  {
+    step: '01',
+    title: 'Understand the goal',
+    description: 'We start with a short call or brief. I want to understand what success looks like for you — not just what pages need building.',
+  },
+  {
+    step: '02',
+    title: 'Build and keep you in the loop',
+    description: 'I work in clear stages with regular check-ins. You see real progress, not just a big reveal at the end.',
+  },
+  {
+    step: '03',
+    title: 'Launch and hand over',
+    description: 'I handle the launch, then hand everything over clearly documented — so your team can manage it without depending on me.',
+  },
+]
+---
+
+<Base
+  title="About — Joe Rylander"
+  description="Freelance web developer helping startups, agencies, and small businesses ship fast, polished web experiences."
+>
+  <article class="pb-20">
+
+    <!-- Header -->
+    <header class="px-13 pt-16 pb-14 max-md:px-6 max-md:pt-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-7 h-px bg-accent shrink-0"></div>
+        <span class="font-mono text-[11px] text-accent uppercase tracking-widest">About</span>
+      </div>
+      <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] max-w-2xl max-md:text-[36px]">
+        {headline}
+      </h1>
+    </header>
+
+    <!-- Bio + process -->
+    <div class="px-13 max-md:px-6 grid grid-cols-[1fr_360px] gap-16 items-start max-lg:grid-cols-1 max-lg:gap-12">
+
+      <!-- Left: bio paragraphs -->
+      <div>
+        <div class="flex flex-col gap-5 mb-14">
+          {bioParagraphs.map(para => (
+            <p class="font-sans text-[16px] text-fg leading-relaxed">{para}</p>
+          ))}
+        </div>
+
+        <!-- How I work -->
+        <div>
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-7 h-px bg-accent shrink-0"></div>
+            <span class="font-mono text-[11px] text-accent uppercase tracking-widest">How I work</span>
+          </div>
+          <div class="flex flex-col gap-0 border border-fg/8 rounded-xl overflow-hidden">
+            {process.map((item, i) => (
+              <div class:list={[
+                'flex gap-5 px-7 py-6',
+                i < process.length - 1 ? 'border-b border-fg/8' : '',
+              ]}>
+                <span class="font-mono text-[11px] text-accent shrink-0 mt-0.75">{item.step}</span>
+                <div>
+                  <h3 class="font-sans text-[15px] font-medium text-fg mb-1">{item.title}</h3>
+                  <p class="font-sans text-[13px] text-muted leading-relaxed">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: availability card + CTA -->
+      <div class="flex flex-col gap-4">
+
+        <!-- Availability card -->
+        <div class="bg-card border border-fg/8 rounded-xl p-7">
+          <div class="flex items-center gap-2 mb-4">
+            <span class:list={[
+              'block w-[6px] h-[6px] rounded-full shrink-0',
+              available ? 'bg-available' : 'bg-faint',
+            ]}></span>
+            <span class="font-mono text-[11px] text-muted">
+              {available ? 'Available for work' : 'Not currently available'}
+            </span>
+          </div>
+          <p class="font-sans text-[13px] text-muted leading-relaxed mb-6">
+            {available
+              ? availNote
+              : 'I\'m fully booked right now but happy to discuss future projects.'}
+          </p>
+          <a
+            href="/contact"
+            class="font-sans text-[13px] font-medium text-card bg-fg no-underline px-6 py-2.5 rounded-md hover:opacity-85 transition-opacity inline-block"
+          >
+            {available ? 'Start a conversation' : 'Get in touch'}
+          </a>
+        </div>
+
+        <!-- What I work on -->
+        <div class="bg-card border border-fg/8 rounded-xl p-7">
+          <h3 class="font-sans text-[13px] font-medium text-fg mb-4">I work well with</h3>
+          <ul class="flex flex-col gap-2 list-none m-0 p-0">
+            {[
+              'Startups shipping their first marketing site',
+              'Agencies needing a reliable development partner',
+              'Small businesses ready to take their web presence seriously',
+              'Teams who want one person accountable end to end',
+            ].map(item => (
+              <li class="flex items-start gap-2.5">
+                <span class="block w-1 h-1 rounded-full bg-accent shrink-0 mt-1.75"></span>
+                <span class="font-sans text-[13px] text-muted leading-snug">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </article>
+</Base>

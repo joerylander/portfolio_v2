@@ -1,0 +1,77 @@
+---
+import Base from '../../layouts/Base.astro'
+import FilterBar from '../../components/FilterBar.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { getAllProjects } from '../../lib/api'
+
+let projects: Awaited<ReturnType<typeof getAllProjects>> = []
+
+try {
+  projects = await getAllProjects()
+} catch (e) {
+  console.warn('[work/index.astro] API unavailable:', (e as Error).message)
+}
+
+const allTags = [...new Set(projects.flatMap(p => p.tags))].sort()
+
+const [first, ...rest] = projects
+---
+
+<Base
+  title="Work — Joe Rylander"
+  description="A selection of projects across e-commerce, SaaS, and marketing — each one focused on outcomes that matter."
+>
+  <!-- Page header -->
+  <header class="px-13 pt-16 pb-10 max-md:px-6">
+    <div class="flex items-center gap-3 mb-6">
+      <div class="w-7 h-px bg-accent shrink-0"></div>
+      <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Selected work</span>
+    </div>
+    <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] mb-4 max-md:text-[36px]">
+      Projects that moved<br /><em class="text-accent not-italic">the needle.</em>
+    </h1>
+    <p class="font-sans text-[15px] text-muted leading-relaxed max-w-xl">
+      From e-commerce to SaaS — each project focused on one thing: results that matter to your business.
+    </p>
+  </header>
+
+  <!-- Filter bar -->
+  {allTags.length > 0 && (
+    <div class="px-13 pb-10 max-md:px-6">
+      <FilterBar tags={allTags} />
+    </div>
+  )}
+
+  <!-- Project grid -->
+  {projects.length > 0 ? (
+    <div class="px-13 pb-20 max-md:px-6">
+      <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1">
+
+        <!-- First project: featured full-width card -->
+        {first && (
+          <div
+            class="project-card col-span-2 max-md:col-span-1"
+            data-tags={first.tags.join(',')}
+          >
+            <ProjectCard project={first} featured={true} />
+          </div>
+        )}
+
+        <!-- Remaining projects: standard two-column grid -->
+        {rest.map(project => (
+          <div
+            class="project-card"
+            data-tags={project.tags.join(',')}
+          >
+            <ProjectCard project={project} />
+          </div>
+        ))}
+
+      </div>
+    </div>
+  ) : (
+    <div class="px-13 pb-20 max-md:px-6">
+      <p class="font-sans text-[14px] text-muted">No projects found.</p>
+    </div>
+  )}
+</Base>

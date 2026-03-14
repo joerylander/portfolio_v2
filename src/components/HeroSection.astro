@@ -9,14 +9,14 @@ interface Props {
 const { featuredProject } = Astro.props
 ---
 
-<section class="grid grid-cols-[1fr_380px] gap-12 items-start px-[52px] py-20 max-md:grid-cols-1 max-md:px-6 max-md:py-12">
+<section class="grid grid-cols-[1fr_380px] gap-12 items-start px-13 py-20 max-md:grid-cols-1 max-md:px-6 max-md:py-12">
 
   <!-- Left: copy -->
   <div>
     <!-- Eyebrow -->
     <div class="flex items-center gap-3 mb-8">
       <div class="w-7 h-px bg-accent shrink-0"></div>
-      <span class="font-mono text-[11px] text-accent uppercase tracking-[0.1em]">Freelance web developer</span>
+      <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Freelance web developer</span>
     </div>
 
     <!-- Headline -->
@@ -42,7 +42,7 @@ const { featuredProject } = Astro.props
         href="/process"
         class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors group"
       >
-        How I work <span class="inline-block transition-transform duration-150 group-hover:translate-x-[3px]">→</span>
+        How I work <span class="inline-block transition-transform duration-150 group-hover:translate-x-0.75">→</span>
       </a>
     </div>
   </div>

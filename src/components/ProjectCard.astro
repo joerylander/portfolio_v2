@@ -14,8 +14,8 @@ const topResult = project.results[0]
   <!-- Featured two-column layout -->
   <a
     href={`/work/${project.slug}`}
-    class="block no-underline bg-card border border-fg/8 rounded-xl overflow-hidden
-           transition-[border-color,transform] duration-200 hover:-translate-y-[3px] hover:border-fg/20
+    class=" no-underline bg-card border border-fg/8 rounded-xl overflow-hidden
+           transition-[border-color,transform] duration-200 hover:-translate-y-0.75 hover:border-fg/20
            grid grid-cols-[1fr_1fr] items-stretch"
   >
     <!-- Image -->
@@ -23,15 +23,15 @@ const topResult = project.results[0]
       {project.thumbnail_url ? (
         <img src={project.thumbnail_url} alt={project.title} class="w-full h-full object-cover" />
       ) : (
-        <div class="w-full h-full bg-accent-light min-h-[240px]"></div>
+        <div class="w-full h-full bg-accent-light min-h-60"></div>
       )}
     </div>
 
     <!-- Body -->
     <div class="p-8 flex flex-col justify-center">
       <div class="flex flex-wrap gap-1.5 mb-4">
-        {project.tags.map(tag => (
-          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-[3px] rounded-md">{tag}</span>
+        {project.tags.map((tag: string) => (
+          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
         ))}
       </div>
       <h3 class="font-serif text-[26px] font-light text-fg leading-snug mb-3">{project.title}</h3>
@@ -52,10 +52,10 @@ const topResult = project.results[0]
   <a
     href={`/work/${project.slug}`}
     class="block no-underline bg-card border border-fg/8 rounded-xl overflow-hidden
-           transition-[border-color,transform] duration-200 hover:-translate-y-[3px] hover:border-fg/20"
+           transition-[border-color,transform] duration-200 hover:-translate-y-0.75 hover:border-fg/20"
   >
     <!-- Image -->
-    <div class="border-b border-fg/8" style="aspect-ratio: 16/9">
+    <div class="border-b border-fg/8 aspect-video">
       {project.thumbnail_url ? (
         <img src={project.thumbnail_url} alt={project.title} class="w-full h-full object-cover" />
       ) : (
@@ -66,8 +66,8 @@ const topResult = project.results[0]
     <!-- Body -->
     <div class="p-6">
       <div class="flex flex-wrap gap-1.5 mb-3">
-        {project.tags.map(tag => (
-          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-[3px] rounded-md">{tag}</span>
+        {project.tags.map((tag: string) => (
+          <span class="font-mono text-[11px] text-muted bg-bg border border-fg/8 px-2 py-0.75 rounded-md">{tag}</span>
         ))}
       </div>
       <h3 class="font-sans text-[16px] font-medium text-fg mb-2 leading-snug">{project.title}</h3>

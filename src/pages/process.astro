@@ -1,0 +1,136 @@
+---
+import Base from '../layouts/Base.astro'
+import CtaBar from '../components/CtaBar.astro'
+
+const phases = [
+  {
+    step: '01',
+    title: 'Brief & discovery',
+    duration: '1–2 days',
+    description: 'We start with a short call or written brief. I want to understand the goal, the audience, and what success looks like for you — not just a list of pages to build. If I\'m not the right fit, I\'ll say so up front.',
+    deliverables: ['Scoped brief document', 'Clear yes or no within 24 hours'],
+  },
+  {
+    step: '02',
+    title: 'Proposal & fixed price',
+    duration: '2–3 days',
+    description: 'You get a written proposal with a fixed price, a clear timeline, and a list of exactly what\'s included. No hourly billing, no scope creep surprises. If something is out of scope, we discuss it before it\'s built.',
+    deliverables: ['Fixed-price quote', 'Project timeline', 'Scope of work'],
+  },
+  {
+    step: '03',
+    title: 'Design & feedback',
+    duration: '1–2 weeks',
+    description: 'I design in the browser where possible, so you see real pages — not static mockups that look nothing like the final product. You get two rounds of feedback before build begins. Changes after sign-off are scoped separately.',
+    deliverables: ['Full page designs', 'Two feedback rounds', 'Design sign-off'],
+  },
+  {
+    step: '04',
+    title: 'Build',
+    duration: '2–4 weeks',
+    description: 'Development happens in staged check-ins, not a big reveal at the end. You\'ll see a live preview throughout the build. I handle accessibility, performance, and mobile from the start — not as an afterthought.',
+    deliverables: ['Staged previews', 'Mobile-ready throughout', 'Performance-first build'],
+  },
+  {
+    step: '05',
+    title: 'Launch & handover',
+    duration: '2–3 days',
+    description: 'I handle the deployment. Once live, I run a final quality check across devices and browsers. You get a handover document explaining how to manage the site, and a 30-day window for bug fixes at no extra cost.',
+    deliverables: ['Deployed to production', 'Handover documentation', '30-day bug fix window'],
+  },
+]
+
+const faqs = [
+  {
+    q: 'How long does a typical project take?',
+    a: 'Most projects run 4–8 weeks from signed proposal to launch. Larger builds or projects with complex integrations take longer — I\'ll give you a specific timeline in the proposal.',
+  },
+  {
+    q: 'Do you work with clients outside your timezone?',
+    a: 'Yes. I work async-first, so timezone differences rarely cause delays. We agree on a communication rhythm upfront — usually one check-in call per week and async updates in between.',
+  },
+  {
+    q: 'What happens if the scope changes mid-project?',
+    a: 'Scope changes happen. When they do, I\'ll send a short written note with the impact on timeline and cost before any extra work begins. Nothing surprises you on the final invoice.',
+  },
+  {
+    q: 'Can you work with our existing team or agency?',
+    a: 'Yes. I\'m comfortable working alongside in-house designers, product teams, or other agencies. I just need a clear scope and a single point of contact on your side.',
+  },
+]
+---
+
+<Base
+  title="Process — Joe Rylander"
+  description="How I work: a clear, fixed-price process from brief to launch with no surprises."
+>
+  <article class="pb-0">
+
+    <!-- Header -->
+    <header class="px-13 pt-16 pb-14 max-md:px-6 max-md:pt-12">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-7 h-px bg-accent shrink-0"></div>
+        <span class="font-mono text-[11px] text-accent uppercase tracking-widest">How I work</span>
+      </div>
+      <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] mb-6 max-md:text-[36px]">
+        A process built around<br /><em class="text-accent not-italic">no surprises.</em>
+      </h1>
+      <p class="font-sans text-[16px] text-muted leading-relaxed max-w-xl">
+        Fixed price. Clear milestones. You know exactly what's happening and when — from the first call to the day we go live.
+      </p>
+    </header>
+
+    <!-- Phases -->
+    <section class="px-13 pb-16 max-md:px-6">
+      <div class="border border-fg/8 rounded-xl overflow-hidden">
+        {phases.map((phase, i) => (
+          <div class:list={[
+            'grid grid-cols-[80px_1fr_200px] gap-8 px-8 py-8 items-start max-md:grid-cols-1 max-md:gap-4 max-md:px-6',
+            i < phases.length - 1 ? 'border-b border-fg/8' : '',
+          ]}>
+            <!-- Step number -->
+            <div>
+              <span class="font-mono text-[11px] text-accent">{phase.step}</span>
+              <p class="font-mono text-[11px] text-faint mt-1">{phase.duration}</p>
+            </div>
+
+            <!-- Title + description -->
+            <div>
+              <h2 class="font-sans text-[15px] font-medium text-fg mb-2">{phase.title}</h2>
+              <p class="font-sans text-[13px] text-muted leading-relaxed">{phase.description}</p>
+            </div>
+
+            <!-- Deliverables -->
+            <ul class="list-none m-0 p-0 flex flex-col gap-2">
+              {phase.deliverables.map(item => (
+                <li class="flex items-start gap-2.5">
+                  <span class="block w-1 h-1 rounded-full bg-accent shrink-0 mt-1.75"></span>
+                  <span class="font-sans text-[12px] text-muted leading-snug">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-13 pb-16 max-md:px-6">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-7 h-px bg-accent shrink-0"></div>
+        <span class="font-mono text-[11px] text-accent uppercase tracking-widest">Common questions</span>
+      </div>
+      <div class="grid grid-cols-2 gap-4 max-md:grid-cols-1">
+        {faqs.map(faq => (
+          <div class="bg-card border border-fg/8 rounded-xl p-7">
+            <h3 class="font-sans text-[14px] font-medium text-fg mb-3 leading-snug">{faq.q}</h3>
+            <p class="font-sans text-[13px] text-muted leading-relaxed">{faq.a}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <CtaBar available={true} availabilityNote="Currently taking on new projects" />
+
+  </article>
+</Base>

@@ -1,0 +1,53 @@
+---
+interface Props {
+  tags: string[]
+}
+
+const { tags } = Astro.props
+---
+
+<div class="flex flex-wrap gap-2" id="filter-bar" role="group" aria-label="Filter projects by tag">
+  <button
+    class="filter-btn font-mono text-[11px] px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
+           transition-colors duration-150 cursor-pointer
+           data-[active]:bg-fg data-[active]:text-card data-[active]:border-fg"
+    data-tag="all"
+    data-active
+  >
+    All
+  </button>
+
+  {tags.map(tag => (
+    <button
+      class="filter-btn font-mono text-[11px] px-3 py-1.5 rounded-md border border-fg/8 text-muted bg-bg
+             transition-colors duration-150 cursor-pointer
+             data-[active]:bg-fg data-[active]:text-card data-[active]:border-fg"
+      data-tag={tag}
+    >
+      {tag}
+    </button>
+  ))}
+</div>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn')
+  const cards   = document.querySelectorAll<HTMLElement>('.project-card')
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tag = btn.dataset.tag!
+
+      buttons.forEach(b => b.removeAttribute('data-active'))
+      btn.setAttribute('data-active', '')
+
+      cards.forEach(card => {
+        if (tag === 'all') {
+          card.style.display = ''
+        } else {
+          const cardTags = card.dataset.tags?.split(',') ?? []
+          card.style.display = cardTags.includes(tag) ? '' : 'none'
+        }
+      })
+    })
+  })
+</script>

@@ -1,3 +1,4 @@
+export type { AboutContent, Project, Result, TimelineItem, Testimonial } from "./api.model";
 import type { AboutContent, Project, Testimonial } from "./api.model";
 
 const BASE_URL = import.meta.env.LARAVEL_API_URL;

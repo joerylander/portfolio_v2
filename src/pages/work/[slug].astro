@@ -1,0 +1,185 @@
+---
+import Base from '../../layouts/Base.astro'
+import ResultsBar from '../../components/ResultsBar.astro'
+import CaseStudySidebar from '../../components/CaseStudySidebar.astro'
+import { getAllProjects, getProjectBySlug } from '../../lib/api'
+import type { Project } from '../../lib/api.model'
+
+export async function getStaticPaths() {
+  try {
+    const projects = await getAllProjects()
+
+    // Fetch full detail for every project in parallel
+    const fullProjects = await Promise.all(
+      projects.map(p => getProjectBySlug(p.slug))
+    )
+
+    return fullProjects
+      .filter((p): p is Project => p !== null)
+      .map(project => ({
+        params: { slug: project.slug },
+        props: { project },
+      }))
+  } catch (e) {
+    console.warn('[work/[slug].astro] API unavailable:', (e as Error).message)
+    return []
+  }
+}
+
+const { project } = Astro.props
+---
+
+<Base
+  title={`${project.title} — Joe Rylander`}
+  description={project.summary}
+>
+  <article class="pb-20">
+
+    <!-- Back link -->
+    <div class="px-13 pt-10 pb-0 max-md:px-6">
+      <a
+        href="/work"
+        class="font-sans text-[13px] text-muted no-underline hover:text-fg transition-colors"
+      >
+        ← All projects
+      </a>
+    </div>
+
+    <!-- Case study header -->
+    <header class="px-13 pt-10 pb-12 grid grid-cols-[1fr_320px] gap-12 items-start max-md:grid-cols-1 max-md:px-6 max-md:gap-8">
+
+      <!-- Left: eyebrow + headline + lead -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-7 h-px bg-accent shrink-0"></div>
+          <span class="font-mono text-[11px] text-accent uppercase tracking-widest">
+            Case study — {project.industry}
+          </span>
+        </div>
+        <h1 class="font-serif text-[52px] font-light text-fg leading-[1.05] mb-6 max-md:text-[36px]">
+          {project.title}
+        </h1>
+        <p class="font-sans text-[16px] text-muted leading-relaxed max-w-xl">
+          {project.summary}
+        </p>
+      </div>
+
+      <!-- Right: meta card -->
+      <div class="bg-card border border-fg/8 rounded-xl overflow-hidden">
+        {[
+          { label: 'Client',       value: project.client,                     green: false },
+          { label: 'Industry',     value: project.industry,                   green: false },
+          { label: 'Project type', value: project.project_type,               green: false },
+          { label: 'Timeline',     value: project.duration_weeks ? `${project.duration_weeks} weeks` : null, green: false },
+          { label: 'Delivered',    value: project.delivered_note,             green: true  },
+        ]
+          .filter(row => row.value)
+          .map((row, i, arr) => (
+            <div class:list={[
+              'flex items-start justify-between gap-4 px-5 py-3',
+              i < arr.length - 1 ? 'border-b border-fg/8' : '',
+            ]}>
+              <span class="font-mono text-[11px] text-muted shrink-0">{row.label}</span>
+              <span class:list={[
+                'font-sans text-[13px] text-right leading-snug',
+                row.green ? 'text-available' : 'text-fg',
+              ]}>
+                {row.value}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </header>
+
+    <!-- Hero image -->
+    <div class="px-13 pb-12 max-md:px-6">
+      {project.hero_image_url ? (
+        <img
+          src={project.hero_image_url}
+          alt={project.title}
+          class="w-full rounded-xl object-cover aspect-[16/7]"
+        />
+      ) : (
+        <div class="w-full rounded-xl bg-accent-light aspect-[16/7]"></div>
+      )}
+    </div>
+
+    <!-- Results bar -->
+    {project.results.length > 0 && (
+      <div class="px-13 pb-14 max-md:px-6">
+        <ResultsBar results={project.results} />
+      </div>
+    )}
+
+    <!-- Body + sidebar -->
+    {project.body && (
+      <div class="px-13 pb-14 grid grid-cols-[1fr_320px] gap-12 items-start max-md:grid-cols-1 max-md:px-6">
+
+        <!-- Main body content -->
+        <div class="flex flex-col gap-12">
+
+          <section>
+            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+              The problem
+            </h2>
+            <p class="font-sans text-[15px] text-fg leading-relaxed">
+              {project.body.problem}
+            </p>
+          </section>
+
+          <section>
+            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+              What I did
+            </h2>
+            <p class="font-sans text-[15px] text-fg leading-relaxed">
+              {project.body.approach}
+            </p>
+          </section>
+
+          <section>
+            <h2 class="font-sans text-[11px] font-medium text-muted uppercase tracking-widest mb-4">
+              The outcome
+            </h2>
+            <p class="font-sans text-[15px] text-fg leading-relaxed">
+              {project.body.outcome}
+            </p>
+          </section>
+
+        </div>
+
+        <!-- Sidebar -->
+        <CaseStudySidebar
+          testimonial={project.testimonial}
+          timeline={project.timeline}
+          deliverables={project.deliverables}
+        />
+
+      </div>
+    )}
+
+    <!-- Next project -->
+    {project.next_project && (
+      <div class="px-13 max-md:px-6">
+        <a
+          href={`/work/${project.next_project.slug}`}
+          class="block no-underline bg-fg rounded-xl px-10 py-10 group"
+        >
+          <span class="font-mono text-[11px] text-card/40 uppercase tracking-widest">
+            Next project
+          </span>
+          <h3 class="font-serif text-[32px] font-light text-card leading-snug mt-3 mb-2 max-md:text-[24px]">
+            {project.next_project.title}
+          </h3>
+          <p class="font-mono text-[12px] text-accent mb-6">
+            {project.next_project.result_preview}
+          </p>
+          <span class="font-sans text-[13px] text-card/60 group-hover:text-card transition-colors">
+            View case study →
+          </span>
+        </a>
+      </div>
+    )}
+
+  </article>
+</Base>
